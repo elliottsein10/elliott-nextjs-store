@@ -1,4 +1,4 @@
-import { getProducts } from "app/app/services/shopify"
+import { getProducts } from "app/app/services/shopify/products"
 import { ProductsWrapper } from "app/components/Store/ProductsWrapper"
 
 interface CategoryProps {
