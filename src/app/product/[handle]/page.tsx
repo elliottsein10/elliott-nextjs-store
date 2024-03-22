@@ -1,14 +1,25 @@
-"use client"
+import { ProductView } from "app/components/product/ProductView"
+import { getProducts } from "app/app/services/shopify/products"
 
-import { useParams, useSearchParams } from "next/navigation"
+interface ProductPageProps {
+    searchParams: {
+        id: string
+    }
+}
 
-useParams
+export default async function ProductPage({ searchParams }: ProductPageProps) {
+    const id = searchParams.id
+    const products = await getProducts(id)
 
+    // Verificar si products es undefined o tiene al menos un elemento
+    const product = products && products.length > 0 ? products[0] : null
 
-export default function ProductPage() {
-    const params = useParams()
-    const searchParams = useSearchParams()
-    const id = searchParams.get("id")
-    console.log('searchParams', id)
-    return <h1>Product Page</h1>
+    // Si products es null, puedes manejar este caso según tus necesidades
+    if (product === null) {
+        // Manejar el caso en el que no se encuentren productos
+        // Por ejemplo, puedes mostrar un mensaje de error o redirigir a otra página
+        return <div>No se encontraron productos.</div>
+    }
+
+    return <ProductView product={product} />
 }
