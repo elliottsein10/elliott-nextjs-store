@@ -1,5 +1,6 @@
 import { ProductView } from "app/components/product/ProductView"
 import { getProducts } from "app/app/services/shopify/products"
+import { redirect } from "next/navigation"
 
 interface ProductPageProps {
     searchParams: {
@@ -20,6 +21,10 @@ export default async function ProductPage({ searchParams }: ProductPageProps) {
         // Por ejemplo, puedes mostrar un mensaje de error o redirigir a otra página
         return <div>No se encontraron productos.</div>
     }
+
+    /* if (!id) {
+        redirect('/')
+    } */
 
     return <ProductView product={product} />
 }
